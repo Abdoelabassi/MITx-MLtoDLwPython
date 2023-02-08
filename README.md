@@ -9,7 +9,7 @@ Contains all projects from linear models to deep learning.
 
 you gonna need this following packages:
 
-numpy, matplotlib, scipt, tqdm, scikit-learn , pytorch
+numpy, matplotlib, scipy, tqdm, scikit-learn , pytorch
 
 visit <a href="https://pytorch.org">Pytorch</a> for more installation guide depeding in your OS and envs (pip or anaconda) w/ or wo/ CUDA.
 
@@ -19,6 +19,10 @@ visit <a href="https://pytorch.org">Pytorch</a> for more installation guide depe
 pip install numpy scipy matplotlib tqdm sciki-learn
 
 ```
+
+# Optional:
+
+You could use <a href="https://root.cern.ch">ROOT</a> too for whetever your needs ( better visualization, pdfs,...)
 
 
 
