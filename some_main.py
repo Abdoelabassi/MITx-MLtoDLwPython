@@ -11,7 +11,7 @@ def func_1():
 	f.SetLineWidth(2)
 	f.Draw()
 	c.Update()
-	c.SaveAs("function_1.png")
+	c.SaveAs("plots/function_1.png")
 
 	ROOT.gSystem.ProcessEvents()
 
