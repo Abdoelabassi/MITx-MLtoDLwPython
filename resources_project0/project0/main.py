@@ -77,5 +77,6 @@ def vector_function(x, y):
     Make sure vector_function can deal with vector input x,y 
     """
     #Your code here
-    raise NotImplementedError
+    my_vecfunc = np.vectorize(scalar_function)
+    return my_vecfunc(x,y)
 
