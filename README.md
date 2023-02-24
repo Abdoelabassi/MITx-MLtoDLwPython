@@ -16,7 +16,7 @@ visit <a href="https://pytorch.org">Pytorch</a> for more installation guide depe
 # In One go : install those first
 
 ```
-pip install numpy scipy matplotlib tqdm sciki-learn
+pip install numpy scipy matplotlib tqdm scikit-learn
 
 ```
 
