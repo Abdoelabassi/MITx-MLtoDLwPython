@@ -106,6 +106,12 @@ utils.plot_tune_results('Pegasos', 'L', Ls, *peg_tune_results_L)
 #-------------------------------------------------------------------------------
 
 # Your code here
+data_1 = (train_bow_features, train_labels, test_bow_features, test_labels)
+best_L = 0.01
+best_T = [25]
+peg_tune_results_T = utils.tune_pegasos_T(best_L, best_T, *data_1)
+print('Pegasos test: tune T', list(zip(best_T, peg_tune_results_T[1])))
+print('best = {:.4f}, T={:.4f}'.format(np.max(peg_tune_results_T[1]), best_T[np.argmax(peg_tune_results_T[1])]))
 
 #-------------------------------------------------------------------------------
 # Assign to best_theta, the weights (and not the bias!) learned by your most
