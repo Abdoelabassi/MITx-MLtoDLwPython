@@ -286,6 +286,7 @@ def check_pegasos():
     labels = np.array([1])
     T = 1
     L = 0.2
+
     exp_res = (np.array([1, 2]), 1)
     if check_tuple(
             ex_name, p1.pegasos,
