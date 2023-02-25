@@ -386,14 +386,13 @@ def bag_of_words(texts, remove_stopword=False):
         integer `index`.
     """
     # Your code here
-    raise NotImplementedError
 
     indices_by_word = {}  # maps word to unique index
     for text in texts:
         word_list = extract_words(text)
         for word in word_list:
             if word in indices_by_word: continue
-            if word in stopword: continue
+            if word in remove_stopword: continue
             indices_by_word[word] = len(indices_by_word)
 
     return indices_by_word
