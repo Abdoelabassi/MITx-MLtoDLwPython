@@ -26,8 +26,8 @@ test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary)
 
 toy_features, toy_labels = toy_data = utils.load_toy_data('toy_data.tsv')
 
-T = 10
-L = 0.2
+T = 25
+L = 0.01
 
 thetas_perceptron = p1.perceptron(toy_features, toy_labels, T)
 thetas_avg_perceptron = p1.average_perceptron(toy_features, toy_labels, T)
@@ -46,7 +46,7 @@ plot_toy_results('Pegasos', thetas_pegasos)
 # Problem 7
 #-------------------------------------------------------------------------------
 
-T = 10
+T = 25
 L = 0.01
 #
 pct_train_accuracy, pct_val_accuracy = \
@@ -118,8 +118,8 @@ print('best = {:.4f}, T={:.4f}'.format(np.max(peg_tune_results_T[1]), best_T[np.
 # accurate algorithm with the optimal choice of hyperparameters.
 #-------------------------------------------------------------------------------
 
-# best_theta = None # Your code here
-# wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
-# sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
-# print("Most Explanatory Word Features")
-# print(sorted_word_features[:10])
+best_theta = np.array([1.0629757616230868, 1.0771376655239484]) # Your code here
+wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
+sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
+print("Most Explanatory Word Features")
+print(sorted_word_features)
