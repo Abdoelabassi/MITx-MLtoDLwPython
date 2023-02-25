@@ -392,14 +392,14 @@ def bag_of_words(texts, remove_stopword=False):
         word_list = extract_words(text)
         for word in word_list:
             if word in indices_by_word: continue
-            if word in remove_stopword: continue
+            #if word in remove_stopword: continue
             indices_by_word[word] = len(indices_by_word)
 
     return indices_by_word
 
 
 
-def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
+def extract_bow_feature_vectors(reviews, indices_by_word, binarize=False):
     """
     Args:
         `reviews` - a list of natural language strings
@@ -410,17 +410,16 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
         in the dictionary.
     """
     # Your code here
-    raise NotImplementedError
 
     feature_matrix = np.zeros([len(reviews), len(indices_by_word)], dtype=np.float64)
     for i, text in enumerate(reviews):
         word_list = extract_words(text)
         for word in word_list:
             if word not in indices_by_word: continue
-            feature_matrix[i, indices_by_word[word]] += 1
+            feature_matrix[i, indices_by_word[word]] = 1
     if binarize:
         # Your code here
-        raise NotImplementedErrort
+        raise NotImplementedError
     return feature_matrix
 
 
