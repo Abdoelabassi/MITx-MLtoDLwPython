@@ -348,8 +348,15 @@ def classifier_accuracy(
         accuracy of the trained classifier on the validation data.
     """
     # Your code here
-    raise NotImplementedError
+    Tr_class = classifier(train_feature_matrix, train_labels, **kwargs)
+    Tr_judge = classify(train_feature_matrix, Tr_class[0], Tr_class[1])
+    T_acc = accuracy(Tr_judge, train_labels)
 
+    
+    V_judge = classify(val_feature_matrix, Tr_class[0], Tr_class[1])
+    V_acc  =  accuracy(V_judge, val_labels)
+
+    return T_acc, V_acc
 
 
 def extract_words(text):
