@@ -221,6 +221,7 @@ def pegasos_single_step_update(
         theta_0 += eta*label
     else:
         theta = (1-eta*L)*theta
+
     return theta, theta_0
 
 
@@ -253,7 +254,17 @@ def pegasos(feature_matrix, labels, T, L):
         after T iterations through the feature matrix.
     """
     # Your code here
-    raise NotImplementedError
+    n_samples, n = feature_matrix.shape
+    theta, theta_0 = np.zeros(n), 0
+    count = 0
+    for t in range(T):
+        for i in get_order(n_samples):
+            count += 1
+            eta = 1/np.sqrt(count)
+            theta, theta_0 = pegasos_single_step_update(feature_matrix[i], labels[i], L, eta, theta, theta_0)
+            
+            
+    return theta, theta_0
 
 
 
