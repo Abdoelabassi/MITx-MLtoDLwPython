@@ -301,7 +301,17 @@ def classify(feature_matrix, theta, theta_0):
         should be considered a positive classification.
     """
     # Your code here
-    raise NotImplementedError
+    n = feature_matrix.shape[0]
+
+    outputs = np.array([])
+    for i in range(n):
+        h = np.dot(feature_matrix[i], theta) + theta_0
+        if h > 0:
+            outputs = np.append(outputs,1)
+        else:
+            outputs = np.append(outputs,-1)
+    outputs = outputs.astype(int)
+    return outputs
 
 
 def classifier_accuracy(
@@ -394,7 +404,7 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
         in the dictionary.
     """
     # Your code here
-    raise NotImplementedErrort
+    raise NotImplementedError
 
     feature_matrix = np.zeros([len(reviews), len(indices_by_word)], dtype=np.float64)
     for i, text in enumerate(reviews):
