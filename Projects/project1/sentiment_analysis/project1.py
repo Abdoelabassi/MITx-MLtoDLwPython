@@ -374,7 +374,7 @@ def extract_words(text):
 
 
 
-def bag_of_words(texts, remove_stopword=False):
+def bag_of_words(texts):
     """
     NOTE: feel free to change this code as guided by Section 3 (e.g. remove
     stopwords, add bigrams etc.)
@@ -387,15 +387,17 @@ def bag_of_words(texts, remove_stopword=False):
     """
     # Your code here
 
-    indices_by_word = {}  # maps word to unique index
+    dictionary = {}  # maps word to unique index
+    text_file = open("stopwords.txt","r")
+    word_stop = text_file.readline().split('\n')
+
     for text in texts:
         word_list = extract_words(text)
         for word in word_list:
-            if word in indices_by_word: continue
-            #if word in remove_stopword: continue
-            indices_by_word[word] = len(indices_by_word)
+            if word not in dictionary and word not in word_stop:
+                dictionary[word] = len(dictionary)
 
-    return indices_by_word
+    return dictionary
 
 
 
