@@ -389,7 +389,7 @@ def bag_of_words(texts):
 
     dictionary = {}  # maps word to unique index
     text_file = open("stopwords.txt","r")
-    word_stop = text_file.readline().split('\n')
+    word_stop = text_file.read().split('\n')
 
     for text in texts:
         word_list = extract_words(text)
@@ -401,7 +401,7 @@ def bag_of_words(texts):
 
 
 
-def extract_bow_feature_vectors(reviews, indices_by_word, binarize=False):
+def extract_bow_feature_vectors(reviews, indices_by_word):
     """
     Args:
         `reviews` - a list of natural language strings
@@ -417,11 +417,11 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=False):
     for i, text in enumerate(reviews):
         word_list = extract_words(text)
         for word in word_list:
-            if word not in indices_by_word: continue
-            feature_matrix[i, indices_by_word[word]] = 1
-    if binarize:
-        # Your code here
-        raise NotImplementedError
+            n = word_list.count(word)
+            if word in indices_by_word:
+                feature_matrix[i, indices_by_word[word]] = n
+                #feature_matrix[i, indices_by_word[word]] = 1
+    
     return feature_matrix
 
 
