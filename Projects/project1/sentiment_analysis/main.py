@@ -118,8 +118,9 @@ print('best = {:.4f}, T={:.4f}'.format(np.max(peg_tune_results_T[1]), best_T[np.
 # accurate algorithm with the optimal choice of hyperparameters.
 #-------------------------------------------------------------------------------
 
-best_theta = np.array([1.0629757616230868, 1.0771376655239484]) # Your code here
+#best_theta = np.array([1.0629757616230868, 1.0771376655239484]) # Your code here
+best_theta = p1.pegasos(train_bow_features, train_labels, T=25, L=0.01)[0]
 wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
 sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
 print("Most Explanatory Word Features")
-print(sorted_word_features)
+print(sorted_word_features[:10])
