@@ -70,6 +70,7 @@ print("the train accuracy is {}".format(train_model.score(X,y)))
 
 # plot the result
 
+print(train_model.coef_)
 slopes = train_model.coef_[0,1]/-train_model.coef_[0,0]
 
 x1 = np.arange(-10,10,0.5)
