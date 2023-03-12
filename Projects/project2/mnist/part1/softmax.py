@@ -66,7 +66,7 @@ def compute_cost_function(X, Y, theta, lambda_factor, temp_parameter):
     reg = (lambda_factor/2)*np.sum(theta**2)
     yone_hot = np.zeros((k,n))
     yone_hot[Y, np.arange(n)] = 1
-    cost = -np.sum(yone_hot*np.log(H))/n
+    cost = -np.sum(yone_hot*np.log(H + 1e-8))/n
     cost += reg
     return cost
 
@@ -136,7 +136,10 @@ def compute_test_error_mod3(X, Y, theta, temp_parameter):
         test_error - the error rate of the classifier (scalar)
     """
     #YOUR CODE HERE
-    raise NotImplementedError
+    assigned_label = get_classification(X, theta, temp_parameter)
+    error = 1 - np.mean(assigned_label == Y)
+    return error
+    
 
 def softmax_regression(X, Y, temp_parameter, alpha, lambda_factor, k, num_iterations):
     """
@@ -194,4 +197,4 @@ def plot_cost_function_over_time(cost_function_history):
 def compute_test_error(X, Y, theta, temp_parameter):
     error_count = 0.
     assigned_labels = get_classification(X, theta, temp_parameter)
-    return 1 - np.mean(assigned_labels == Y)
+    return round(1 - np.mean((assigned_labels%3) == (Y%3)),2)
