@@ -137,7 +137,7 @@ def compute_test_error_mod3(X, Y, theta, temp_parameter):
     """
     #YOUR CODE HERE
     assigned_label = get_classification(X, theta, temp_parameter)
-    error = 1 - np.mean(assigned_label == Y)
+    error = 1 - np.mean((assigned_label%3) == (Y%3))
     return error
     
 
@@ -197,4 +197,4 @@ def plot_cost_function_over_time(cost_function_history):
 def compute_test_error(X, Y, theta, temp_parameter):
     error_count = 0.
     assigned_labels = get_classification(X, theta, temp_parameter)
-    return round(1 - np.mean((assigned_labels%3) == (Y%3)),2)
+    return 1 - np.mean(assigned_labels == Y)
