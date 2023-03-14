@@ -172,6 +172,7 @@ test_pca = project_onto_PC(test_x, pcs, n_components, feature_means)
 
 # TODO: Train your softmax regression model using (train_pca, train_y)
 #       and evaluate its accuracy on (test_pca, test_y).
+'''
 theta_pca, cost_function_history_pca = softmax_regression(train_pca, train_y, temp_parameter=1, alpha=0.3, lambda_factor=1.0e-4, k=10, num_iterations=150)
 plot_cost_function_over_time(cost_function_history_pca)
 test_error_pca = compute_test_error(test_pca, test_y, theta_pca, temp_parameter=1)
@@ -179,19 +180,19 @@ test_error_pca = compute_test_error(test_pca, test_y, theta_pca, temp_parameter=
 write_pickle_data(theta_pca, "./thetapca.pkl.gz")
 
 print("test error of softmax PCA ", test_error_pca)
-    
+'''    
 
 # TODO: Use the plot_PC function in features.py to produce scatterplot
 #       of the first 100 MNIST images, as represented in the space spanned by the
 #       first 2 principal components found above.
-plot_PC(train_x[range(000, 100), ], pcs, train_y[range(000, 100)], feature_means)#feature_means added since release
+#plot_PC(train_x[range(000, 100), ], pcs, train_y[range(000, 100)], feature_means)#feature_means added since release
 
 
 # TODO: Use the reconstruct_PC function in features.py to show
 #       the first and second MNIST images as reconstructed solely from
 #       their 18-dimensional principal component representation.
 #       Compare the reconstructed images with the originals.
-
+'''
 firstimage_reconstructed = reconstruct_PC(train_pca[0, ], pcs, n_components, train_x, feature_means)#feature_means added since release
 plot_images(firstimage_reconstructed)
 plot_images(train_x[0, ])
@@ -199,19 +200,26 @@ plot_images(train_x[0, ])
 secondimage_reconstructed = reconstruct_PC(train_pca[1, ], pcs, n_components, train_x, feature_means)#feature_means added since release
 plot_images(secondimage_reconstructed)
 plot_images(train_x[1, ])
-
+'''
 
 ## Cubic Kernel ##
 # TODO: Find the 10-dimensional PCA representation of the training and test set
-
-
+train_pca10 = project_onto_PC(train_x, pcs, 10, feature_means)
+test_pca10 = project_onto_PC(test_x, pcs, 10, feature_means)
 # TODO: First fill out cubicFeatures() function in features.py as the below code requires it.
 
-#train_cube = cubic_features(train_pca10)
-#test_cube = cubic_features(test_pca10)
+train_cube = cubic_features(train_pca10)
+test_cube = cubic_features(test_pca10)
 # train_cube (and test_cube) is a representation of our training (and test) data
 # after applying the cubic kernel feature mapping to the 10-dimensional PCA representations.
 
 
 # TODO: Train your softmax regression model using (train_cube, train_y)
 #       and evaluate its accuracy on (test_cube, test_y).
+theta_cube, cost_function_history_cube = softmax_regression(train_cube, train_y, temp_parameter=1, alpha=0.3, lambda_factor=1.0e-4, k=10, num_iterations=150)
+plot_cost_function_over_time(cost_function_history_cube)
+test_error_cube = compute_test_error(test_cube, test_y, theta_cube, temp_parameter=1)
+# Save the model parameters theta obtained from calling softmax_regression to disk.
+write_pickle_data(theta_cube, "./thetacube.pkl.gz")
+
+print("test error of softmax for cubic kernel ", test_error_cube)
