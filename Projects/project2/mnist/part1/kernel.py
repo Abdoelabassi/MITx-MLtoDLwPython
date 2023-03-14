@@ -49,5 +49,3 @@ def rbf_kernel(X, Y, gamma):
     rbf = np.exp(-gamma*distances)
     return rbf
     
-    RBF = np.exp(-gamma*norm**2)
-    return RBF
