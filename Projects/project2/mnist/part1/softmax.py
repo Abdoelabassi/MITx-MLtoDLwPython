@@ -6,6 +6,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.sparse as sparse
 
+############################################
+############################################
+#TODO:
+#Implementing the softmax regression using kernelized features. 
+# You will have to rewrite the softmax_regression function in softmax.py, 
+# as well as the auxiliary functions compute_cost_function, compute_probabilities, 
+# run_gradient_descent_iteration.
+#How does the test error change?
+#############################################
+#############################################
+
+
 
 def augment_feature_vector(X):
     """
