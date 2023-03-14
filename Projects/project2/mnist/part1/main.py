@@ -8,7 +8,7 @@ from svm import *
 from softmax import *
 from features import *
 from kernel import *
-
+from sklearn.svm import SVC
 #######################################################################
 # 1. Introduction
 #######################################################################
@@ -216,6 +216,7 @@ test_cube = cubic_features(test_pca10)
 
 # TODO: Train your softmax regression model using (train_cube, train_y)
 #       and evaluate its accuracy on (test_cube, test_y).
+''''
 theta_cube, cost_function_history_cube = softmax_regression(train_cube, train_y, temp_parameter=1, alpha=0.3, lambda_factor=1.0e-4, k=10, num_iterations=150)
 plot_cost_function_over_time(cost_function_history_cube)
 test_error_cube = compute_test_error(test_cube, test_y, theta_cube, temp_parameter=1)
@@ -223,3 +224,23 @@ test_error_cube = compute_test_error(test_cube, test_y, theta_cube, temp_paramet
 write_pickle_data(theta_cube, "./thetacube.pkl.gz")
 
 print("test error of softmax for cubic kernel ", test_error_cube)
+'''
+#############################################################
+#Using Sklearn SVM POLY and RBF
+#############################################################
+
+ployk = SVC(random_state=0, kernel="poly", degree=3)
+rbf = SVC(random_state=0, kernel="rbf")
+
+poly_model = ployk.fit(train_pca10, train_y)
+rbf_model = rbf.fit(train_pca10, train_y)
+
+poly_model.predict(test_pca10)
+rbf_model.predict(test_pca10)
+
+print(poly_model.get_params(deep=True))
+print(rbf_model.get_params(deep=True))
+error_svm = 1 - poly_model.score(test_pca10, test_y)
+error_rbf = 1 - rbf_model.score(test_pca10, test_y)
+print("Error rate for 10-dimensional PCA features using cubic polynomial svm = ", error_svm)
+print("Error rate for 10-dimensional PCA features using rbf svm = ", error_rbf)
