@@ -32,7 +32,7 @@ def compute_accuracy(predictions, y):
 
 
 # Training Procedure
-def train_model(train_data, dev_data, model, lr=0.01, momentum=0.9, nesterov=False, n_epochs=30):
+def train_model(train_data, dev_data, model, lr=0.1, momentum=0, nesterov=False, n_epochs=30):
     """Train a model for N epochs given data and hyper-params."""
     # We optimize with SGD
     optimizer = torch.optim.SGD(model.parameters(), lr=lr, momentum=momentum, nesterov=nesterov)

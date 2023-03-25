@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+*#! /usr/bin/env python
 
 import _pickle as c_pickle, gzip
 import numpy as np
@@ -44,7 +44,7 @@ def main():
     ## Model specification TODO
     model = nn.Sequential(
               nn.Conv2d(1, 32, (3, 3)),
-              nn.ReLU(),
+              nn.LeakyReLU(0.01),
               nn.MaxPool2d((2, 2)),
             )
     ##################################
