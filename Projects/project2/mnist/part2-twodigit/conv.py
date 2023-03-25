@@ -35,6 +35,8 @@ class CNN(nn.Module):
         x = self.relu(x)
         x = self.maxpool2d(x)
         x = self.conv2d2(x)
+        x = self.relu(x)
+        x = self.maxpool2d(x)
         x = self.flatten(x)
         x = self.linear1(x)
         x = self.dropout(x)
