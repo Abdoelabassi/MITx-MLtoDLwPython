@@ -4,6 +4,7 @@ import _pickle as c_pickle, gzip
 import numpy as np
 from tqdm import tqdm
 import torch
+from torch import Flatten
 import torch.autograd as autograd
 import torch.nn.functional as F
 import torch.nn as nn
@@ -43,9 +44,16 @@ def main():
     #################################
     ## Model specification TODO
     model = nn.Sequential(
-              nn.Conv2d(1, 32, (3, 3)),
-              nn.LeakyReLU(0.01),
-              nn.MaxPool2d((2, 2)),
+               nn.Conv2d(1, 32, (3, 3)),
+               nn.ReLU(),
+               nn.MaxPool2d((2, 2)),
+               nn.Conv2d(32,64,(3,3)),
+               nn.ReLU(),
+               nn.MaxPool2d((2,2)),
+               nn.Flatten(),
+               nn.Linear(64*5*5,128),
+               nn.Dropout(p=0.5),
+               nn.Linear(128,10)
             )
     ##################################
 
