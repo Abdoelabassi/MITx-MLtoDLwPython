@@ -2,6 +2,7 @@
 from typing import Tuple
 import numpy as np
 from scipy.special import logsumexp
+from scipy.stats import norm, multivariate_normal
 from common import GaussianMixture
 
 
@@ -18,7 +19,19 @@ def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
         float: log-likelihood of the assignment
 
     """
-    raise NotImplementedError
+    mu, var, weight = mixture
+    n, _ = X.shape
+    k, _ = mu.shape
+    prob_mat = np.zeros([n, k])
+    prob_all = np.zeros(n)
+    for i in range(k):
+        prob = weight[i] * multivariate_normal(mu[i], var[i]).pdf(X)
+        prob_mat[:,i] = prob
+        prob_all += prob
+    post = prob_mat / np.tile(prob_all.reshape(n, 1), (1, k))
+    log_likelihood = np.sum(np.log(np.sum(prob_mat, axis = 1)))
+    return post, log_likelihood
+
 
 
 
