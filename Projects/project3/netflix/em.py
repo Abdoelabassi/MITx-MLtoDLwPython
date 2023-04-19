@@ -50,7 +50,20 @@ def mstep(X: np.ndarray, post: np.ndarray, mixture: GaussianMixture,
     Returns:
         GaussianMixture: the new gaussian mixture
     """
-    raise NotImplementedError
+    n,d = X.shape
+    _, k = post.shape
+
+    n_clusters = np.einsum("ij->j", post)
+    weight = n_clusters/n
+    mu = post.T @ X/n_clusters.reshape(k,1)
+    var = np.zeros(k)
+
+    for j in range(k):
+        var[j] = np.sum(post[:,j].T @ (X - mu[j])**2)/(d*n_clusters[j])
+    
+    return GaussianMixture(mu, var,weight)
+
+
 
 
 def run(X: np.ndarray, mixture: GaussianMixture,
