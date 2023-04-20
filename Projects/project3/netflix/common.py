@@ -104,6 +104,6 @@ def bic(X: np.ndarray, mixture: GaussianMixture,
 
     n_params = mu.size + var.size + p.size - 1
 
-    bic = log_likelihood - 1/2*p*np.log(n)
+    bic = log_likelihood - 1/2*n_params*np.log(n)
 
     return bic
