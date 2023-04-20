@@ -59,7 +59,7 @@ def mstep(X: np.ndarray, post: np.ndarray, mixture: GaussianMixture,
     var = np.zeros(k)
 
     for j in range(k):
-        var[j] = np.sum(post[:,j].T @ (X - mu[j])**2)/(d*n_clusters[j])
+        var[j] = np.sum(post[:,j].T @ (X - mu[j])**2/(d*n_clusters[j]))
     
     return GaussianMixture(mu, var,weight)
 
@@ -86,7 +86,7 @@ def run(X: np.ndarray, mixture: GaussianMixture,
     while 1:
         post, new_log_likelihood = estep(X, mixture)
 
-        mixture = mstep(X, post)
+        mixture = mstep(X, post, mixture)
 
         if old_log_likelihood is not None:
             if(new_log_likelihood - old_log_likelihood ) < 1e-6* abs(new_log_likelihood):
