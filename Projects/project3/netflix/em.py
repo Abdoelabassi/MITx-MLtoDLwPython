@@ -93,7 +93,7 @@ def run(X: np.ndarray, mixture: GaussianMixture,
                 break
         old_log_likelihood = new_log_likelihood
 
-    return post, new_log_likelihood
+    return mixture, post, new_log_likelihood
 
 
 
