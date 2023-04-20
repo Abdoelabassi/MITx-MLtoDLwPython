@@ -15,7 +15,7 @@ for i in K:
     for s in seeds:
         mixture, post = common.init(X, K=i, seed=s)
 
-        common.plot(X, mixture=mixture, post=post, title=f"Cost function with K={i}, and seed={s} ")
+        common.plot(X, mixture=mixture, post=post, title=f"KMeans  with K={i}, and seed={s} ")
 
         mixture1, post, cost = kmeans.run(X, mixture=mixture, post=post)
         Costs.append(cost)
