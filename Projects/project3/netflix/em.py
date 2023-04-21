@@ -100,19 +100,20 @@ def run(X: np.ndarray, mixture: GaussianMixture,
             for all components for all examples
         float: log-likelihood of the current assignment
     """
-    old_log_likelihood = None
-
-    while 1:
-        post, new_log_likelihood = estep(X, mixture)
-
+    old_log_L = None
+    new_log_L = None
+    
+    while old_log_L is None or (new_log_L - old_log_L > 1e-6*np.abs(new_log_L)):
+        
+        old_log_L = new_log_L
+        
+        # E-step
+        post, new_log_L = estep(X, mixture)
+        
+        # M-step
         mixture = mstep(X, post, mixture)
-
-        if old_log_likelihood is not None:
-            if(new_log_likelihood - old_log_likelihood ) < 1e-6* abs(new_log_likelihood):
-                break
-        old_log_likelihood = new_log_likelihood
-
-    return mixture, post, new_log_likelihood
+            
+    return mixture, post, new_log_L
 
 
 
