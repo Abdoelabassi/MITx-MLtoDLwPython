@@ -4,21 +4,22 @@ import common
 
 #X = np.loadtxt("test_incomplete.txt")
 #X_gold = np.loadtxt("test_complete.txt")
-X = np.loadtxt("toy_data.txt")
+X = np.loadtxt("netflix_complete.txt")
 
 
-K = [1,2,3,4]
+K = [1,12]
 n, d = X.shape
-seed = [0,1,2,3,4]
-BIC = {}
+seeds = [0,1,2,3,4]
+LL = []
 # TODO: Your code here
-for k in K:
-    mixture, post = common.init(X,K=k,seed=0)
+for s in seeds:
+    mixture, post = common.init(X,K=12,seed=s)
     mixture, post , Log_likelihood = em.run(X, mixture=mixture, post=post)
-    bic = common.bic(X, mixture, Log_likelihood)
-    print(f"bic score={bic} for K={k} ")
-    BIC[k] = bic
+    X_pred = em.fill_matrix(X, mixture)
+    acc = common.rmse(X, X_pred)
+
+    print(f"The accuracy is {acc}, seed={s} ")
+
     
 print("\n")
 
-print(f"BIC scores = {BIC}")
