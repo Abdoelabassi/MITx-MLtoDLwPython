@@ -136,4 +136,4 @@ def fill_matrix(X: np.ndarray, mixture: GaussianMixture) -> np.ndarray:
     miss_indices = np.where(X == 0)
     X_pred[miss_indices] = (post @ mu)[miss_indices]
     
-    return 
+    return X_pred
