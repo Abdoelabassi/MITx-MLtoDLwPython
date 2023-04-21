@@ -18,19 +18,30 @@ def estep(X: np.ndarray, mixture: GaussianMixture) -> Tuple[np.ndarray, float]:
             for all components for all examples
         float: log-likelihood of the assignment
 
-    """
-    mu, var, weight = mixture
-    n, _ = X.shape
-    k, _ = mu.shape
-    prob_mat = np.zeros([n, k])
-    prob_all = np.zeros(n)
-    for i in range(k):
-        prob = weight[i] * multivariate_normal(mu[i], var[i]).pdf(X)
-        prob_mat[:,i] = prob
-        prob_all += prob
-    post = prob_mat / np.tile(prob_all.reshape(n, 1), (1, k))
-    log_likelihood = np.sum(np.log(np.sum(prob_mat, axis = 1)))
-    return post, log_likelihood
+    """ 
+    n, d = X.shape
+    mu, var, p = mixture 
+    K = mu.shape[0]
+    
+    
+    delta = X.astype(bool).astype(int)
+   
+    f = (np.sum(X**2, axis=1)[:,None] + (delta @ mu.T**2) - 2*(X @ mu.T))/(2*var)
+    
+    pre_exp = (-np.sum(delta, axis=1).reshape(-1,1)/2.0) @ (np.log((2*np.pi*var)).reshape(-1,1)).T
+   
+    f = pre_exp - f
+    
+    
+    f = f + np.log(p + 1e-16)
+    
+    # log of normalizing term in p(j|u)
+    logsums = logsumexp(f, axis=1).reshape(-1,1)
+    log_posts = f - logsums 
+    
+    log_L = np.sum(logsums, axis=0).item()   
+    
+    return np.exp(log_posts), log_L
 
 
 
