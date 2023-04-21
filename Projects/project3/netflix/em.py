@@ -127,4 +127,13 @@ def fill_matrix(X: np.ndarray, mixture: GaussianMixture) -> np.ndarray:
     Returns
         np.ndarray: a (n, d) array with completed data
     """
-    raise NotImplementedError
+    X_pred = X.copy()
+    mu, _, _ = mixture
+    
+    post, _ = estep(X, mixture)
+    
+    # Missing entries to be filled
+    miss_indices = np.where(X == 0)
+    X_pred[miss_indices] = (post @ mu)[miss_indices]
+    
+    return 
