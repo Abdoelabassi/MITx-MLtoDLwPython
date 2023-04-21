@@ -61,18 +61,26 @@ def mstep(X: np.ndarray, post: np.ndarray, mixture: GaussianMixture,
     Returns:
         GaussianMixture: the new gaussian mixture
     """
-    n,d = X.shape
-    _, k = post.shape
-
-    n_clusters = np.einsum("ij->j", post)
-    weight = n_clusters/n
-    mu = post.T @ X/n_clusters.reshape(k,1)
-    var = np.zeros(k)
-
-    for j in range(k):
-        var[j] = np.sum(post[:,j].T @ (X - mu[j])**2/(d*n_clusters[j]))
+    n, d = X.shape
+    mu_rev, var_rev, p_rev = mixture
+    K = mu_rev.shape[0]
     
-    return GaussianMixture(mu, var,weight)
+   
+    p_rev = np.sum(post, axis=0)/n
+    
+    delta = X.astype(bool).astype(int)
+    
+    denom = post.T @ delta 
+    numer = post.T @ X  
+    update_indices = np.where(denom >= 1)
+    mu_rev[update_indices] = numer[update_indices]/denom[update_indices]     
+    denom_var = np.sum(post*np.sum(delta, axis=1).reshape(-1,1), axis=0) 
+    
+    norms = np.sum(X**2, axis=1)[:,None] + (delta @ mu_rev.T**2) - 2*(X @ mu_rev.T)
+   
+    var_rev = np.maximum(np.sum(post*norms, axis=0)/denom_var, min_variance)  
+    
+    return GaussianMixture(mu_rev, var_rev, p_rev)
 
 
 
