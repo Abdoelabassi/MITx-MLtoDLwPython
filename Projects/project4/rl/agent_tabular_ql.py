@@ -61,8 +61,15 @@ def tabular_q_learning(q_func, current_state_1, current_state_2, action_index,
         None
     """
     # TODO Your code here
+    Qmax = 0
+    if terminal:
+        Qmax = 0
+    else:
+        Qmax = np.max(q_func[current_state_1, current_state_2,:,:])
+
+
     q_func[current_state_1, current_state_2, action_index,
-           object_index] = 0  # TODO Your update here
+           object_index] = (1-ALPHA)*q_func[current_state_1, current_state_2, action_index, object_index] + ALPHA*(reward + GAMMA*Qmax)  # TODO Your update here
 
     return None  # This function shouldn't return anything
 
