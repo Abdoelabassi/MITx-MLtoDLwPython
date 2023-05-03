@@ -41,8 +41,14 @@ def epsilon_greedy(state_vector, epsilon):
         (int, int): the indices describing the action/object to take
     """
     # TODO Your code here
-    action_index, object_index = None, None
-    return (action_index, object_index)
+    if np.random.binomial(1,epsilon):
+        action_index, object_index = np.random.randint(NUM_ACTIONS, size=1), \
+                                     np.random.randi(NUM_OBJECTS, size=1)
+    else:
+        action_arr, object_arr = model(state_vector)
+        action_index, object_index = torch.argmax(action_arr), torch.argmax(object_arr)
+    
+    return (int(action_index), int(object_index))
 
 class DQN(nn.Module):
     """A simple deep Q network implementation.
