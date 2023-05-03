@@ -25,6 +25,7 @@ def load_data(path_data):
     for row in reader:
     	data.append(row)
 
+    
     f_data.close()
 
     return data

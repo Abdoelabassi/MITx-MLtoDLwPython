@@ -9,12 +9,12 @@ DEBUG = False
 
 GAMMA = 0.5  # discounted factor
 TRAINING_EP = 0.5  # epsilon-greedy parameter for training
-TESTING_EP = 0.05  # epsilon-greedy parameter for testing
+TESTING_EP = 0.5  # epsilon-greedy parameter for testing
 NUM_RUNS = 10
 NUM_EPOCHS = 200
 NUM_EPIS_TRAIN = 25  # number of episodes for training at each epoch
 NUM_EPIS_TEST = 50  # number of episodes for testing
-ALPHA = 0.1  # learning rate for training
+ALPHA = 1e-6  # learning rate for training
 
 ACTIONS = framework.get_actions()
 OBJECTS = framework.get_objects()
