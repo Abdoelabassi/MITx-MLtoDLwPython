@@ -39,7 +39,7 @@ pip install numpy scipy matplotlib tqdm scikit-learn
 
 # Note:
 
-This is not a project repo, it's a rather somewhat a guide for new verified learners to slove the project problems, in case they stuck.
+This is not a project repo, it's a  somewhat a guide for new verified learners to slove the project problems, in case they stuck.
 
 
 ## Author : EL Abassi Abderrazaq
