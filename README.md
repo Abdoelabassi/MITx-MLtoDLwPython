@@ -29,8 +29,15 @@ Create your environment
   conda create -n <name of your env> python==3.9
   
 ```
+Then activate the env
 
-using pip (or conda), in one go, install these packages
+```
+conda activate <name of your env>
+
+```
+
+
+Using pip (or conda), in one go, install these packages
 
 ```
 pip install numpy scipy matplotlib tqdm scikit-learn
